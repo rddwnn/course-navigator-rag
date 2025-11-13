@@ -1,0 +1,27 @@
+uv.lock
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.env
+
+# Model/index data
+data/*/index/*
+!data/.gitkeep
+
+# Raw course content
+data/*/raw/*
+!data/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
