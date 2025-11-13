@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  course-navigator-rag:
+    build: .
+    container_name: course-navigator-rag
+    # Берём переменные из .env в корне проекта:
+    env_file:
+      - .env
+    # Монтируем данные курсов с хоста в контейнер
+    volumes:
+      - ./data:/app/data
+    # Перезапускать при падении/перезагрузке сервера
+    restart: unless-stopped
