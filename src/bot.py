@@ -1,26 +1,23 @@
+from __future__ import annotations
 import asyncio
 
 from aiogram import Bot, Dispatcher
-from aiogram.filters import CommandStart
-from aiogram.types import Message
+from aiogram.fsm.storage.memory import MemoryStorage
 
-from .config import settings  # относительный импорт
-
-
-bot = Bot(token=settings.telegram_bot_token)
-dp = Dispatcher()
-
-
-@dp.message(CommandStart())
-async def cmd_start(message: Message) -> None:
-    await message.answer(
-        "Привет! Я RAG-бот для курсов.\n"
-        "Сейчас проект только инициализирован — скоро научусь отвечать по материалам курса."
-    )
+from .config import settings
+from .router import router
 
 
 async def main() -> None:
-    # здесь потом добавим router, middlewares и т.д.
+    if not settings.telegram_bot_token:
+        raise RuntimeError("TELEGRAM_BOT_TOKEN не задан в .env")
+
+    bot = Bot(token=settings.telegram_bot_token)
+    dp = Dispatcher(storage=MemoryStorage())
+
+    dp.include_router(router)
+
+    print("Бот запущен, начинаем polling...")
     await dp.start_polling(bot)
 
 
