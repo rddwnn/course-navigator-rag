@@ -13,4 +13,5 @@ dependencies = [
     "pypdf>=6.2.0",
     "python-dotenv>=1.2.1",
     "scikit-learn>=1.7.2",
+    "tiktoken>=0.12.0",
 ]
